@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Anniversary</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFC0CB; /* Latar belakang pink muda */
+            color: white;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1, h2 {
+            font-family: 'Dancing Script', cursive; /* Font huruf sambung untuk h1 dan h2 */
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100vh; /* Tinggi layar penuh */
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        .large-image {
+            width: 55vh; /* Perbesar ukuran lebar */
+            height: 55vh; /* Perbesar ukuran tinggi sama dengan lebar */
+            border-radius: 50%; /* Membuat gambar bulat */
+            object-fit: cover; /* Memastikan gambar sesuai dalam lingkaran */
+        }
+        .countdown {
+            margin-top: 20px;
+            display: flex; /* Menggunakan flexbox untuk menyusun secara horizontal */
+            justify-content: space-around; /* Meratakan ruang antara elemen */
+            padding: 10px; /* Padding di dalam lingkaran */
+        }
+        .countdown div {
+            background-color: white; /* Warna latar belakang putih */
+            color: black; /* Warna font hitam */
+            font-size: 1.5em;
+            width: 100px; /* Lebar lingkaran */
+            height: 100px; /* Tinggi lingkaran */
+            border-radius: 50%; /* Membuat elemen bulat */
+            display: flex; /* Menggunakan flex untuk menyelaraskan teks */
+            align-items: center; /* Vertikal tengah */
+            justify-content: center; /* Horizontal tengah */
+            text-align: center; /* Teks di tengah */
+            margin: 0 10px; /* Jarak antar lingkaran */
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            margin: 20px;
+            opacity: 0; /* Mulai tidak terlihat */
+            transform: translateY(20px); /* Geser sedikit ke bawah */
+            transition: opacity 0.5s ease, transform 0.5s ease; /* Animasi */
+            background: linear-gradient(to bottom, #FFC0CB, #FFFFFF); /* Gradasi pink ke putih */
+            padding: 20px; /* Tambahkan padding agar gambar tidak menempel di tepi */
+        }
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            opacity: 0; /* Mulai tidak terlihat */
+            transform: translateY(20px); /* Geser sedikit ke bawah */
+            transition: opacity 0.5s ease, transform 0.5s ease; /* Animasi */
+        }
+        .gallery img.visible {
+            opacity: 1; /* Menjadi terlihat */
+            transform: translateY(0); /* Kembali ke posisi normal */
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="text">
+        <h1>Happy Anniversary</h1>
+        <h2>Jhames Anderson & Median Dwi Syafitri</h2>
+    </div>
+    <img src="Picture1.jpg" alt="Foto Utama" class="large-image">
+
+<div class="countdown" id="countdown">
+    <div id="days">731 Days</div>
+    <div id="hours">13 Hours</div>
+    <div id="minutes">0 Minutes</div>
+    <div id="seconds">0 Seconds</div>
+</div>
+</div>
+<div class="gallery">
+    <img src="Picture2.jpg" alt="Foto 1">
+    <img src="Picture3.jpg" alt="Foto 2">
+    <img src="Picture5.jpg" alt="Foto 3">
+    <img src="Picture6.jpg" alt="Foto 4">
+    <img src="Picture7.jpg" alt="Foto 5">
+    <img src="Picture8.jpg" alt="Foto 6">
+    <img src="Picture9.jpg" alt="Foto 7">
+    <img src="Picture10.jpg" alt="Foto 8">
+    <img src="Picture11.jpg" alt="Foto 9">
+    <img src="Picture12.jpg" alt="Foto 10">
+
+</div>
+<script>
+    // Set countdown time (in seconds)
+    const totalSeconds = (731 * 24 * 60 * 60) + (13 * 60 * 60);
+    let remainingSeconds = totalSeconds;
+
+    function updateCountdown() {
+        const days = Math.floor(remainingSeconds / (24 * 60 * 60));
+        const hours = Math.floor((remainingSeconds % (24 * 60 * 60)) / (60 * 60));
+        const minutes = Math.floor((remainingSeconds % (60 * 60)) / 60);
+        const seconds = remainingSeconds % 60;
+
+        document.getElementById('days').textContent = `${days} Days`;
+        document.getElementById('hours').textContent = `${hours} Hours`;
+        document.getElementById('minutes').textContent = `${minutes} Minutes`;
+        document.getElementById('seconds').textContent = `${seconds} Seconds`;
+
+        if (remainingSeconds > 0) {
+            remainingSeconds--;
+        } else {
+            clearInterval(countdownInterval);
+        }
+    }
+
+    // Update countdown every second
+    const countdownInterval = setInterval(updateCountdown, 1000);
+</script>
+<script>
+    window.addEventListener('scroll', function() {
+        const gallery = document.querySelector('.gallery');
+        const images = document.querySelectorAll('.gallery img');
+        
+        // Tampilkan galeri ketika di-scroll
+        if (window.scrollY > 100) { // Ganti angka sesuai kebutuhan
+            gallery.style.opacity = 1;
+            gallery.style.transform = 'translateY(0)';
+            images.forEach((img, index) => {
+                setTimeout(() => {
+                    img.classList.add('visible');
+                }, index * 100); // Tampilkan gambar satu per satu
+            });
+        }
+    });
+</script>
+
+</body>
+</html>
